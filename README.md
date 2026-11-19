@@ -4,9 +4,9 @@ Claude Code mods.
 
 ## screensaver
 
-A different animated backdrop behind the conversation every minute, like a screensaver. You need a recent Claude desktop app, because that's where the backdrops draw.
+A different animated backdrop behind the conversation every minute, like a screensaver. Every scene is a dark one, so the app goes dark while it runs. You need a recent Claude desktop app, because that's where the backdrops draw.
 
-The repo holds 18 scenes: 17 from [buildwithclaude.com/themes](https://buildwithclaude.com/themes) and an original pixel-art Hong Kong harbour at night. Three more (Neon Tokyo, Marina Bay, Bat Cave) can be added; see [All 21 scenes](#all-21-scenes-mac).
+The repo holds 12 scenes: 11 from [buildwithclaude.com/themes](https://buildwithclaude.com/themes) and an original pixel-art Hong Kong harbour at night. Three more (Neon Tokyo, Marina Bay, Bat Cave) can be added; see [All 15 scenes](#all-15-scenes-mac).
 
 | Command | What it does |
 | --- | --- |
@@ -16,7 +16,7 @@ The repo holds 18 scenes: 17 from [buildwithclaude.com/themes](https://buildwith
 | `/screensaver auto` | Goes back to rotating |
 | `/screensaver off` | Turns it off |
 
-### Install (18 scenes)
+### Install (12 scenes)
 
 At the prompt of a terminal session:
 
@@ -32,7 +32,7 @@ claude plugin install screensaver --marketplace BodhiSatvik/my-mods
 
 In the desktop app, where `/plugin` does not run: click + next to the prompt box, then Plugins, then Add marketplace with `BodhiSatvik/my-mods`, then Add plugin.
 
-### All 21 scenes (Mac)
+### All 15 scenes (Mac)
 
 The repos for Neon Tokyo and Marina Bay ([markimoo09/claude-code-themes](https://github.com/markimoo09/claude-code-themes)) and Bat Cave ([Sumit189/bat-cave](https://github.com/Sumit189/bat-cave)) have no license file, so this repo doesn't include those scenes. [`screensaver/add-extras.sh`](screensaver/add-extras.sh) downloads them from those repos, at pinned commits, into your own copy.
 
@@ -50,7 +50,7 @@ Set up my Claude Code screensaver mod from github.com/BodhiSatvik/my-mods (my ow
 D=~/.claude/mod-sources/my-mods && mkdir -p "$D" && curl -fsSL https://github.com/BodhiSatvik/my-mods/archive/refs/heads/main.tar.gz | tar -xz --strip-components=1 -C "$D" && sh "$D/screensaver/add-extras.sh" && CLAUDE="$(command -v claude || ls -td "$HOME/Library/Application Support/Claude/claude-code/"*/*/claude.app/Contents/MacOS/claude | head -1)" && "$CLAUDE" plugin marketplace add "$D" && "$CLAUDE" plugin install screensaver@my-mods --scope user
 
 - If it says the marketplace or plugin is already added or installed, that's fine: the files were updated in place. Say so and stop.
-- If add-extras.sh fails: it fetches Neon Tokyo and Marina Bay from github.com/markimoo09/claude-code-themes (hooks/looks/neon-tokyo.ts, marina-bay.ts, pixel.ts, types.ts) and Bat Cave from github.com/Sumit189/bat-cave (hooks/register.tsx). Read the script, fix only the fetch, then run the rest of the command. The other 18 scenes work without it, so skipping it and finishing the install is fine too.
+- If add-extras.sh fails: it fetches Neon Tokyo and Marina Bay from github.com/markimoo09/claude-code-themes (hooks/looks/neon-tokyo.ts, marina-bay.ts, pixel.ts, types.ts) and Bat Cave from github.com/Sumit189/bat-cave (hooks/register.tsx). Read the script, fix only the fetch, then run the rest of the command. The other 12 scenes work without it, so skipping it and finishing the install is fine too.
 - If an organization policy or managed settings block anything, stop and tell me. Don't work around it.
 ```
 
@@ -58,7 +58,7 @@ Then start a new session and type `/screensaver`. To update later, run the same 
 
 ### Credits
 
-- 15 scenes from Anthropic's [theme-examples](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/theme-examples) (Apache-2.0)
-- Rainy Window by [Ishu Agrawal](https://github.com/ishuagrawal/claude-code-themes) and Garden by [cktang88](https://github.com/cktang88/claude-garden-theme), both MIT: each license sits in its folder under `screensaver/hooks/vendor/`
+- 10 scenes from Anthropic's [theme-examples](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/theme-examples) (Apache-2.0)
+- Rainy Window by [Ishu Agrawal](https://github.com/ishuagrawal/claude-code-themes) (MIT): each license sits in its folder under `screensaver/hooks/vendor/`
 - Neon Tokyo and Marina Bay by [markimoo09](https://github.com/markimoo09/claude-code-themes), and Bat Cave by [Sumit189](https://github.com/Sumit189/bat-cave), which `add-extras.sh` downloads and this repo doesn't include
 - Hong Kong, and the rotation itself, are original to this repo

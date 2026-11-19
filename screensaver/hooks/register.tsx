@@ -1,6 +1,6 @@
 import type { EngineInterface, Register } from 'claude-code'
 
-import { THEMES, garden } from './themes'
+import { THEMES } from './themes'
 import type { Theme } from './themes'
 
 const EVERY_MS = 60_000 // one scene per minute, like a screensaver
@@ -12,7 +12,7 @@ let at = 0
 let tick: { cancel: () => void } | undefined
 const built = new Map<string, string>()
 
-/** A scene's SVG, built once; the garden is built afresh each time it comes round, as it grows. */
+/** A scene's SVG, built once. */
 function svgOf(t: Theme): string {
   const ready = built.get(t.id)
   if (ready !== undefined) return ready
@@ -24,16 +24,6 @@ function svgOf(t: Theme): string {
 async function show($: EngineInterface, i: number) {
   at = (i + THEMES.length) % THEMES.length
   const t = THEMES[at]!
-  if (t.id === 'garden') {
-    const usage = await $.session.usage().catch(() => undefined)
-    if (usage !== undefined)
-      garden.figures = {
-        contextPercent: usage.context.percent ?? null,
-        limits: usage.rateLimits.map(l => ({ kind: l.kind, percentUsed: Math.round(l.percentUsed) })),
-        usd: usage.cost?.usd ?? null,
-      }
-    built.delete(t.id)
-  }
   svgOf(t) // build before the switch: a backdrop answered late is drawn still
   return $.theme.set({
     ...(t.colors !== undefined && { colors: t.colors }),
@@ -63,12 +53,6 @@ export const register: Register = on => {
     await show($, Math.floor(Math.random() * THEMES.length))
     rotate($)
 
-    return next(e)
-  })
-
-  // The garden grows a little with every finished turn.
-  on('turn.complete', ($, e, next) => {
-    if (e.agentId === undefined) garden.turns++
     return next(e)
   })
 
@@ -106,7 +90,6 @@ export const register: Register = on => {
     if (e.surface !== 'desktop' && e.surface !== 'mobile') return next(e)
     const t = THEMES.find(x => x.id === e.props.scene)
     if (t === undefined || e.props.plugin !== 'screensaver') return next(e)
-    if (t.isDesktopOnly && e.surface !== 'desktop') return next(e)
     const { Svg } = $.ui.resolve(e)
 
     return <Svg source={svgOf(t)} alt={t.alt} isInteractive />
