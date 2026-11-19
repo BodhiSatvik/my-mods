@@ -2,6 +2,6 @@
   "name": "my-mods",
   "owner": { "name": "BodhiSatvik" },
   "plugins": [
-    { "name": "screensaver", "source": "./screensaver", "description": "Animated backdrops that change every minute in the Claude desktop app, like a screensaver" }
+    { "name": "screensaver", "source": "./screensaver", "description": "Animated backdrops that change every 3 minutes in the Claude desktop app, like a screensaver" }
   ]
 }

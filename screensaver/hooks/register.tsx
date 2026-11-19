@@ -3,7 +3,7 @@ import type { EngineInterface, Register } from 'claude-code'
 import { THEMES } from './themes'
 import type { Theme } from './themes'
 
-const EVERY_MS = 60_000 // one scene per minute, like a screensaver
+const EVERY_MS = 180_000 // a new scene every 3 minutes, like a screensaver
 
 const NAMES = THEMES.map(t => t.id).join(', ')
 
@@ -61,7 +61,7 @@ export const register: Register = on => {
     const now = () => THEMES[at]!.name
 
     if (arg === '') {
-      return { text: `Showing ${now()}${tick ? ', rotating every minute' : ', pinned'}. Scenes: ${NAMES}. Use /screensaver next, /screensaver <scene>, /screensaver auto or /screensaver off.` }
+      return { text: `Showing ${now()}${tick ? ', rotating every 3 minutes' : ', pinned'}. Scenes: ${NAMES}. Use /screensaver next, /screensaver <scene>, /screensaver auto or /screensaver off.` }
     }
     if (arg === 'off') {
       stop()
@@ -71,11 +71,11 @@ export const register: Register = on => {
     if (arg === 'auto') {
       await show($, at + 1)
       rotate($)
-      return { text: `Rotating every minute. Now showing ${now()}.` }
+      return { text: `Rotating every 3 minutes. Now showing ${now()}.` }
     }
     if (arg === 'next') {
       const set = await show($, at + 1)
-      if (tick) rotate($) // give the new scene its full minute
+      if (tick) rotate($) // give the new scene its full 3 minutes
       return { text: set.isDrawn ? `Now showing ${now()}.` : `Switched to ${now()}, but nothing draws here: ${set.reason}` }
     }
     const i = THEMES.findIndex(t => t.id === arg || t.name.toLowerCase() === arg)

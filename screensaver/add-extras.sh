@@ -51,9 +51,18 @@ const fromLook = (look: Look, glass: ThemeBackdropGlass): Theme => {
   }
 }
 
+// Bat Cave's logo flips like a coin every 8s; here it holds still (the solid frame) and a band of light
+// sweeps across it now and then. The band is masked to the logo's own glyphs.
+const still = (svg: string): string => {
+  const solid = /<g class="sh s0">[\s\S]*?<\/g>/.exec(svg)?.[0] ?? ''
+  const css = '.spin,.sh{animation:none!important}.m text{fill:#fff!important}.shine{animation:shine 7s ease-in-out infinite}@keyframes shine{0%{transform:translateX(-420px)}45%,100%{transform:translateX(420px)}}'
+  const shine = `<g transform="translate(800 430) scale(1.15)"><mask id="batmask" maskUnits="userSpaceOnUse" x="-400" y="-150" width="800" height="300"><g class="m plate">${solid}</g></mask><linearGradient id="batshine" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".5"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient><g mask="url(#batmask)"><rect class="shine" x="-90" y="-130" width="180" height="260" fill="url(#batshine)"/></g></g>`
+  return svg.replace('</style>', `${css}</style>`).replace('<text x="40" y="60">', `${shine}<text x="40" y="60">`)
+}
+
 export const CITIES: readonly Theme[] = [fromLook(neonTokyo, { blur: 8, opacity: 0.62 }), fromLook(marinaBay, { blur: 4, opacity: 0.6 })]
 export const BAT: readonly Theme[] = [
-  { id: 'bat-cave', name: 'Bat Cave', alt: 'A block-character bat turning slowly on a dark terminal grid', glass: { blur: 10, tint: '#08090a', opacity: 0.62 }, colors: bat.theme, problems: bat.problems, scene: () => bat.sceneOf('', 0, 0, 0) },
+  { id: 'bat-cave', name: 'Bat Cave', alt: 'A block-character bat turning slowly on a dark terminal grid', glass: { blur: 10, tint: '#08090a', opacity: 0.62 }, colors: bat.theme, problems: bat.problems, scene: () => still(bat.sceneOf('', 0, 0, 0)) },
 ]
 EOF
 echo "Added Neon Tokyo, Marina Bay and Bat Cave. Start a new session to see them."

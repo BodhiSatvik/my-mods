@@ -4,7 +4,7 @@ Claude Code mods.
 
 ## screensaver
 
-A different animated backdrop behind the conversation every minute, like a screensaver. Every scene is a dark one, so the app goes dark while it runs. You need a recent Claude desktop app, because that's where the backdrops draw.
+A different animated backdrop behind the conversation every 3 minutes, like a screensaver. Every scene is a dark one, so the app goes dark while it runs. You need a recent Claude desktop app, because that's where the backdrops draw.
 
 The repo holds 12 scenes: 10 from [buildwithclaude.com/themes](https://buildwithclaude.com/themes) and two original Hong Kong ones, a pixel-art Victoria Harbour at night and a calm Nan Lian Garden with its golden pavilion on the lotus pond. Three more (Neon Tokyo, Marina Bay, Bat Cave) can be added; see [All 15 scenes](#all-15-scenes-mac).
 
