@@ -27,7 +27,7 @@ done
 
 cat > extras.ts <<'EOF'
 // Written by add-extras.sh: the three scenes it fetched into hooks/vendor/.
-import type { ThemeScene } from 'claude-code'
+import type { ThemeBackdropGlass, ThemeScene } from 'claude-code'
 
 import type { Theme } from './themes'
 import * as bat from './vendor/bat-cave/bat'
@@ -35,21 +35,23 @@ import { marinaBay } from './vendor/city-looks/marina-bay'
 import { neonTokyo } from './vendor/city-looks/neon-tokyo'
 import type { Look } from './vendor/city-looks/types'
 
-const fromLook = (look: Look): Theme => {
+// The looks ship with clear glass (blur 0, 30%); their lit windows then sit sharp behind the text,
+// so the screensaver veils them more to keep muted text at 4.5:1.
+const fromLook = (look: Look, glass: ThemeBackdropGlass): Theme => {
   const backdrop = look.theme.backdrop as ThemeScene
   const drawn = look.scenes[backdrop.scene]!
   return {
     id: look.id,
     name: look.label,
     alt: drawn.alt,
-    glass: backdrop.glass || {},
+    glass: { ...(backdrop.glass || {}), ...glass },
     colors: look.theme.colors,
     problems: look.problems,
     scene: () => drawn.source,
   }
 }
 
-export const CITIES: readonly Theme[] = [fromLook(neonTokyo), fromLook(marinaBay)]
+export const CITIES: readonly Theme[] = [fromLook(neonTokyo, { blur: 8, opacity: 0.62 }), fromLook(marinaBay, { blur: 4, opacity: 0.6 })]
 export const BAT: readonly Theme[] = [
   { id: 'bat-cave', name: 'Bat Cave', alt: 'A block-character bat turning slowly on a dark terminal grid', glass: { blur: 10, tint: '#08090a', opacity: 0.62 }, colors: bat.theme, problems: bat.problems, scene: () => bat.sceneOf('', 0, 0, 0) },
 ]

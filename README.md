@@ -6,7 +6,7 @@ Claude Code mods.
 
 A different animated backdrop behind the conversation every minute, like a screensaver. Every scene is a dark one, so the app goes dark while it runs. You need a recent Claude desktop app, because that's where the backdrops draw.
 
-The repo holds 12 scenes: 11 from [buildwithclaude.com/themes](https://buildwithclaude.com/themes) and an original pixel-art Hong Kong harbour at night. Three more (Neon Tokyo, Marina Bay, Bat Cave) can be added; see [All 15 scenes](#all-15-scenes-mac).
+The repo holds 12 scenes: 10 from [buildwithclaude.com/themes](https://buildwithclaude.com/themes) and two original Hong Kong ones, a pixel-art Victoria Harbour at night and a calm Nan Lian Garden with its golden pavilion on the lotus pond. Three more (Neon Tokyo, Marina Bay, Bat Cave) can be added; see [All 15 scenes](#all-15-scenes-mac).
 
 | Command | What it does |
 | --- | --- |
@@ -59,6 +59,5 @@ Then start a new session and type `/screensaver`. To update later, run the same 
 ### Credits
 
 - 10 scenes from Anthropic's [theme-examples](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/theme-examples) (Apache-2.0)
-- Rainy Window by [Ishu Agrawal](https://github.com/ishuagrawal/claude-code-themes) (MIT): each license sits in its folder under `screensaver/hooks/vendor/`
 - Neon Tokyo and Marina Bay by [markimoo09](https://github.com/markimoo09/claude-code-themes), and Bat Cave by [Sumit189](https://github.com/Sumit189/bat-cave), which `add-extras.sh` downloads and this repo doesn't include
-- Hong Kong, and the rotation itself, are original to this repo
+- Hong Kong, Nan Lian Garden and the rotation itself are original to this repo

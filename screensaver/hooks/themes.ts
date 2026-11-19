@@ -1,15 +1,14 @@
 // The scenes the screensaver rotates through, picked from buildwithclaude.com/themes: dark ones only.
 // Each one keeps its maker's scene and glass; where its plugin set app colours, those come along too.
-// Credits and licenses: hooks/vendor/*/ (Anthropic theme-examples: Apache-2.0; rainy-window: MIT).
+// Credits and licenses: hooks/vendor/theme-examples/ (Anthropic, Apache-2.0).
 // Neon Tokyo, Marina Bay and Bat Cave come from repos with no license file, so they aren't shipped here:
 // add-extras.sh fetches them into your own copy and fills in hooks/extras.ts.
 
 import type { ThemeBackdropGlass, ThemeColors } from 'claude-code'
 
-import { makeColors } from './make-colors.js'
 import { BAT, CITIES } from './extras'
 import { hongKong } from './hongkong'
-import { SCENE_ALT as RAINY_ALT, sceneSvg as rainySvg } from './vendor/rainy-window/scene'
+import { nanLian } from './nanlian'
 import { blueprintSvg } from './vendor/theme-examples/blueprint'
 import { brailleStarsSvg } from './vendor/theme-examples/braille-stars'
 import { departureBoardSvg } from './vendor/theme-examples/departure-board'
@@ -39,14 +38,6 @@ const example = (id: string, name: string, glass: ThemeBackdropGlass, scene: () 
   id, name, scheme: 'dark', glass, scene, alt,
 })
 
-// Dark alone, so the app goes dark for it whatever mode it's in.
-const rainy = makeColors({
-  label: 'Rainy window',
-  only: 'dark',
-  roles: { accent: '#5562C9', danger: '#C9553E', success: '#4E8B62', warning: '#D9892F', pro: '#7E5FC0' },
-  dark: { gray: { anchors: { 'surface-0': '#12142A', 'surface-1': '#181B33', 'surface-2': '#1D2140', 'surface-3': '#22264A', 'text-primary': '#EDE6D6', 'text-secondary': '#CBC3B3', 'text-muted': '#A8A192' } } },
-})
-
 export const THEMES: readonly Theme[] = [
   example('halftone-dusk', 'Halftone Dusk', { blur: 14, tint: '#1f2336', opacity: 0.5 }, halftoneDuskSvg, 'The riso sunrise on night-blue stock: an ember sun in breathing dots'),
   example('plotter-tide-night', 'Plotter Tide, Night', { blur: 0, tint: '#141a27', opacity: 0.32 }, plotterTideNightSvg, 'The tide chart in pale ink on blue-black night paper'),
@@ -58,8 +49,9 @@ export const THEMES: readonly Theme[] = [
   example('vector-range', 'Vector Range', { blur: 22, tint: '#0e2f27', opacity: 0.42 }, vectorRangeSvg, 'Phosphor mountains on black; an amber beam keeps retracing them'),
   example('departure-board', 'Departure Board', { blur: 14, tint: '#1a120b', opacity: 0.34 }, departureBoardSvg, 'An amber LED board re-lettering itself, row by row'),
   example('blueprint', 'Blueprint', { blur: 14, tint: '#0c2444', opacity: 0.42 }, blueprintSvg, 'A cyanotype sheet; a comet goes round its plotted orbit in the corner'),
-  { id: 'rainy-window', name: 'Rainy Window', alt: RAINY_ALT, glass: { blur: 18, opacity: 0.62 }, colors: rainy.theme, problems: rainy.problems, scene: rainySvg },
   ...CITIES,
-  { id: 'hong-kong', name: 'Hong Kong', alt: hongKong.alt, glass: { blur: 0, tint: '#0a0918', opacity: 0.3 }, colors: hongKong.colors, problems: hongKong.problems, scene: hongKong.scene },
+  // Lit windows and lasers sit right behind the text: this much veil keeps muted text at 4.5:1 over them.
+  { id: 'hong-kong', name: 'Hong Kong', alt: hongKong.alt, glass: { blur: 4, tint: '#0a0918', opacity: 0.6 }, colors: hongKong.colors, problems: hongKong.problems, scene: hongKong.scene },
+  { id: 'nan-lian', name: 'Nan Lian Garden', alt: nanLian.alt, glass: { blur: 6, tint: '#0a0e16', opacity: 0.5 }, colors: nanLian.colors, problems: nanLian.problems, scene: nanLian.scene },
   ...BAT,
 ]

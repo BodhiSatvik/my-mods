@@ -9,7 +9,7 @@ const GW = 400
 const GH = 250
 const SHORE = 175 // the waterline, in art pixels
 
-function rng(seed: number): () => number {
+export function rng(seed: number): () => number {
   return () => {
     seed = (seed + 0x6d2b79f5) | 0
     let t = Math.imul(seed ^ (seed >>> 15), 1 | seed)
