@@ -16,6 +16,8 @@ The repo holds 12 scenes: 10 from [buildwithclaude.com/themes](https://buildwith
 | `/screensaver auto` | Goes back to rotating |
 | `/screensaver off` | Turns it off |
 
+Every chat shares one schedule, so a new chat carries on with the scene that's up instead of picking a new one. A pin, a skip or `off` in one chat applies to all of them.
+
 ### Install (12 scenes)
 
 At the prompt of a terminal session:
